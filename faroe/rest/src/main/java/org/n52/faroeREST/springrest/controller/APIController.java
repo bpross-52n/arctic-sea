@@ -38,43 +38,45 @@ public class APIController {
     @Autowired
     private SettingsAPI api;
 
-    @GetMapping(path = "/definitions")
+    private static final String BASE_PATH = "/admin";
+
+    @GetMapping(value = BASE_PATH + "/definitions")
     public Collection<SettingDefinition<?>> getSettingDefinitions() {
         return this.api.getSettingDefinitions();
 
     }
 
-    @PostMapping(path = "/definitions", consumes = "application/json")
+    @PostMapping(value = BASE_PATH + "/definitions", consumes = "application/json")
     public void addSettingDefinitions(@RequestBody Collection<SettingDefinition<?>> value) {
         this.api.addSettingDefinitions(value);
     }
 
-    @GetMapping(path = "/definitions/groups")
+    @GetMapping(value = BASE_PATH + "/definitions/groups")
     public Set<String> getGroups() {
         return this.api.getGroups();
     }
 
-    @GetMapping(path = "/definitions/groups/{groupTitle}")
+    @GetMapping(value = BASE_PATH + "/definitions/groups/{groupTitle}")
     public Collection<SettingDefinition<?>> getSettingDefinitionByTitle(@PathVariable String groupTitle) {
         return this.api.getSettingsByTitle(groupTitle);
     }
 
-    @PutMapping(path = "/settings", consumes = "application/json")
+    @PutMapping(value = BASE_PATH + "/settings", consumes = "application/json")
     public void updateSettingValue(@RequestBody JsonSettingValue<?> value) {
         this.api.updateSettingValue(value);
     }
 
-    @GetMapping("/settings")
+    @GetMapping(value = BASE_PATH + "/settings")
     public Collection<SettingValue<?>> getSettingValues() {
         return this.api.getSettingValues();
     }
 
-    @GetMapping("/settings/{groupTitle}")
+    @GetMapping(value = BASE_PATH + "/settings/{groupTitle}")
     public Collection<SettingValue<?>> getSettingValuesByGroup(String groupTitle) {
         return this.api.getSettingValuesByGroup(groupTitle);
     }
 
-    @DeleteMapping("/settings/{setting}")
+    @DeleteMapping(value = BASE_PATH + "/settings/{setting}")
     public void deleteSettingValue(@PathVariable String setting) {
         this.api.deleteSettingValue(setting);
     }
